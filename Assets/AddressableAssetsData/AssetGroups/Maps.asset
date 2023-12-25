@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: e1a6a1fd7fa6c0e40babc1799f12a5fa
   m_SerializeEntries:
   - m_GUID: 8cecd2f33e3f55a448d50ba4a5ba9609
-    m_Address: Forest
+    m_Address: Assets/Game/Prefabs/Maps/Forest.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
