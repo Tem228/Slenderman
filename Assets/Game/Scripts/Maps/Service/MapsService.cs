@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -5,36 +6,25 @@ using UnityEngine.AddressableAssets;
 public class MapsService : MonoBehaviour
 {
     [SerializeField]
-    private AssetReferenceGameObject _defaultMapPrefab;
-
-    [SerializeField]
     private Transform _mapParent;
 
     public Map CurrentMap { get; private set; }
 
-    private void OnValidate() 
-    {
-        if(_defaultMapPrefab != null
-        && _defaultMapPrefab.editorAsset.GetComponent<Map>() == null)
-        {
-            _defaultMapPrefab = null;
+    public event Action MapCreated;
 
-            throw new System.Exception($"Укажите ссылку на обьект у которого есть скрипт Map");
-        }
-    }
+    public event Action MapDestroyed;
 
-    public void Initialize()
-    {
-       LoadMap();
-    }
-
-    private async void LoadMap()
+    public async void LoadMap(AssetReferenceGameObject mapPrefab)
     {
         DestroyMap();
 
-        GameObject mapObject = await _defaultMapPrefab.InstantiateAsync(_mapParent).Task.AsUniTask();
+        GameObject mapObject = await  Addressables.InstantiateAsync(mapPrefab, _mapParent).Task.AsUniTask();
 
         CurrentMap = mapObject.GetComponent<Map>();
+
+        CurrentMap.Initialize();
+
+        MapCreated?.Invoke();
     }
 
     private void DestroyMap()
@@ -44,6 +34,8 @@ public class MapsService : MonoBehaviour
             return;
         }
 
-        _defaultMapPrefab.ReleaseInstance(CurrentMap.gameObject);
+        Addressables.ReleaseInstance(CurrentMap.gameObject);
+
+        MapDestroyed?.Invoke();
     }
 }

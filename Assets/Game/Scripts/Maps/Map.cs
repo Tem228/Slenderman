@@ -1,9 +1,14 @@
+using System;
 using UnityEngine;
 
 public class Map : MonoBehaviour
 {
+    [Header("Parameters")]
     [SerializeField]
     private Material _skyboxMaterial;
+
+    [field : SerializeField]
+    public MapPlayerSpawnPoints PlayerSpawnPoints { get; private set; }
 
     private void OnValidate() 
     {
@@ -24,5 +29,7 @@ public class Map : MonoBehaviour
     public void Initialize()
     {
         RenderSettings.skybox = _skyboxMaterial;
+
+        PlayerSpawnPoints.Initialize();
     }
 }

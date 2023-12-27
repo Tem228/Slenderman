@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Maps
+  m_Name: Player
   m_EditorClassIdentifier: 
-  m_GroupName: Maps
+  m_GroupName: Player
   m_Data:
     m_SerializedData: []
-  m_GUID: e1a6a1fd7fa6c0e40babc1799f12a5fa
+  m_GUID: 39ad37156dd600743aa8d7b21f58fe78
   m_SerializeEntries:
-  - m_GUID: 8cecd2f33e3f55a448d50ba4a5ba9609
-    m_Address: Forest
+  - m_GUID: 4028b63ab904a534db7077418691ad40
+    m_Address: Player
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -26,5 +26,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 729de87774b2f29488c7eb2581072801, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: be972ef0e99264d45834b19456534ff3, type: 2}
-    - {fileID: 11400000, guid: cf4d88d7b330a05488f38ae4f0e172a0, type: 2}
+    - {fileID: 11400000, guid: 4a738abcb7b408b4496120f4fc1d8639, type: 2}
+    - {fileID: 11400000, guid: 07811a5de8c3dbe48a8b7bb59dd7e615, type: 2}
