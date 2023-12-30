@@ -18,12 +18,12 @@ public class PlayerService : MonoBehaviour
 
     private void OnValidate() 
     {
-        if(_playerPrefab != null
+        if (_playerPrefab != null
         && _playerPrefab.editorAsset.GetComponent<Player>() == null)
         {
             _playerPrefab = null;
 
-              throw new System.Exception($"Укажите ссылку на обьект у которого есть скрипт Player");
+            throw new System.Exception($"Укажите ссылку на обьект у которого есть скрипт Player");
         }
     }
 

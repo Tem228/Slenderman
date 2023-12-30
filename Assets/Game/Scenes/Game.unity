@@ -248,6 +248,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 138667295}
+  - {fileID: 816344636}
   - {fileID: 304595340}
   m_Father: {fileID: 1112050111}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -350,6 +351,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &816344635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 816344636}
+  - component: {fileID: 816344637}
+  m_Layer: 0
+  m_Name: Pages
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &816344636
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816344635}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 518793090}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &816344637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816344635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3dc68e367e9da842a6ba13642deca1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minDistanceBetweenPages: 30
+  _createPagesAmount: 5
+  _pageReference:
+    m_AssetGUID: 38d6d73baf19d7f498f702b06c200e8e
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
 --- !u!1 &1112050110
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,6 +481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameParameters: {fileID: 11400000, guid: 8b77b8de3a4906f4dbaed05e8433097c, type: 2}
   <MapsService>k__BackingField: {fileID: 138667296}
+  <PagesService>k__BackingField: {fileID: 816344637}
   <PlayerService>k__BackingField: {fileID: 304595341}
 --- !u!1 &1842575204
 GameObject:

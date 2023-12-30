@@ -10,6 +10,9 @@ public class Map : MonoBehaviour
     [field : SerializeField]
     public MapPlayerSpawnPoints PlayerSpawnPoints { get; private set; }
 
+    [field: SerializeField]
+    public MapPagesSpawnPoints PageSpawnPoints { get; private set; }
+
     private void OnValidate() 
     {
         if(_skyboxMaterial != null
@@ -31,5 +34,7 @@ public class Map : MonoBehaviour
         RenderSettings.skybox = _skyboxMaterial;
 
         PlayerSpawnPoints.Initialize();
+
+        PageSpawnPoints.Initialize();
     }
 }
