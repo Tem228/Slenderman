@@ -5,9 +5,11 @@ public class GameEntryPoint : MonoBehaviour
     [SerializeField]
     private GameParameters _gameParameters;
 
+    [SerializeField]
+    private ObjectiveText _objectiveText;
+
     [field: SerializeField]
     public MapsService MapsService { get; private set; }
-
 
     [field: SerializeField]
     public PagesService PagesService { get; private set; }
@@ -26,5 +28,7 @@ public class GameEntryPoint : MonoBehaviour
         PlayerService.Initialize(MapsService);
 
         MapsService.LoadMap(_gameParameters.DefaultMapPrefab);
+
+        _objectiveText.Initialize(PagesService);
     }
 }

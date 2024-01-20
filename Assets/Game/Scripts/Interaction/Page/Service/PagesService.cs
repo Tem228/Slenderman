@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Random = UnityEngine.Random;
@@ -11,12 +12,14 @@ public class PagesService : MonoBehaviour
     [SerializeField]
     private float _minDistanceBetweenPages;
     [SerializeField]
-    [Range(0, 10)]
+    [Range(1, 10)]
     private int _createPagesAmount;
 
     [Header("Prefab")]
     [SerializeField]
     private AssetReferenceGameObject _pageReference;
+
+    private bool _subscribedToEvents;
 
     private Page _pagePrefab;
 
@@ -24,9 +27,11 @@ public class PagesService : MonoBehaviour
 
     private MapsService _mapsService;
 
-    public event Action<Page> PageCollected;
+    public int CollectedPagesAmount { get; private set; }
 
-    private bool _subscribedToEvents;
+    public int NeedCollectPagesAmount => _createPagesAmount; 
+
+    public event Action<Page> PageCollected;
 
     private void OnValidate()
     {
@@ -46,21 +51,23 @@ public class PagesService : MonoBehaviour
         UnSubscribeFromEvents();
     }
 
-    public async void Initialize(MapsService mapsService)
+    public void Initialize(MapsService mapsService)
     {
         _pages = new List<Page>();
 
         _mapsService = mapsService;
 
-      GameObject pagePrefab = await _pageReference.LoadAssetAsync().ToUniTask();
-
-        _pagePrefab = pagePrefab.GetComponent<Page>(); 
-
         SubscribeToEvents();
     }
 
-    private void CreatePages()
+    private async void CreatePages()
     {
+        CollectedPagesAmount = 0;
+
+        GameObject pagePrefab = await _pageReference.LoadAssetAsync().ToUniTask();
+
+        _pagePrefab = pagePrefab.GetComponent<Page>();
+
         for (int i = 0; i < _createPagesAmount; i++)
         {
             CreatePage();
@@ -71,11 +78,13 @@ public class PagesService : MonoBehaviour
     {
         MapPagesSpawnPoints pagesSpawnPoints = _mapsService.CurrentMap.PageSpawnPoints;
 
-        Vector3 randomPosition = CalculatePageFuturePosition(pagesSpawnPoints.Points);
+        Transform randomPoint = GetPageRandomPoint(pagesSpawnPoints.Points.ToList());
 
-        Page page = Instantiate(_pagePrefab, randomPosition, Quaternion.identity, pagesSpawnPoints.Parent);
+        Page page = Instantiate(_pagePrefab, randomPoint.position, randomPoint.rotation, pagesSpawnPoints.Parent);
 
         page.Initialize(OnPageCollected, OnPageCollected);
+
+        _pages.Add(page);
     }
 
     private void DestroyPages()
@@ -86,15 +95,22 @@ public class PagesService : MonoBehaviour
         }
     }
 
-    private Vector3 CalculatePageFuturePosition(Vector3[] positions)
+    private Transform GetPageRandomPoint(List<Transform> points)
     {
-        Vector3 result = positions[Random.Range(0, positions.Length)];
+        if(points.Count == 0)
+        {
+            throw new Exception($"Количество созданных записок: {_pages.Count}. Не хватает точек. Добавьте больше");
+        }
+
+        Transform result = points[Random.Range(0, points.Count)];
 
         for (int i = 0; i < _pages.Count; i++)
         {
-            if (Vector2.Distance(_pages[i].transform.position, result) > _minDistanceBetweenPages)
+            if (Vector2.Distance(_pages[i].transform.position, result.position) < _minDistanceBetweenPages)
             {
-                return CalculatePageFuturePosition(positions);
+                points.Remove(result);
+
+                return GetPageRandomPoint(points);
             }
         }
 
@@ -151,6 +167,8 @@ public class PagesService : MonoBehaviour
     private void OnPageCollected(Page page)
     {
         PageCollected?.Invoke(page);
+
+        CollectedPagesAmount += 1;
     }
 
     #endregion

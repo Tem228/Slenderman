@@ -32,9 +32,5 @@ public class Map : MonoBehaviour
     public void Initialize()
     {
         RenderSettings.skybox = _skyboxMaterial;
-
-        PlayerSpawnPoints.Initialize();
-
-        PageSpawnPoints.Initialize();
     }
 }

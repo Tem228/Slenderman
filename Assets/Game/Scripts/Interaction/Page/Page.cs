@@ -22,6 +22,6 @@ public class Page : MonoBehaviour
     {
         _collected?.Invoke(this);
 
-        Destroy(this);
+        Destroy(gameObject);
     }
 }

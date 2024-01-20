@@ -41,9 +41,9 @@ public class PlayerService : MonoBehaviour
 
     private async void CreatePlayer()
     {
-        Vector3 spawnPoint = _mapsService.CurrentMap.PlayerSpawnPoints.DefaultPoint;
+        Transform spawnPoint = _mapsService.CurrentMap.PlayerSpawnPoints.DefaultPoint;
 
-        GameObject playerObject = await _playerPrefab.InstantiateAsync(spawnPoint, Quaternion.identity, _playerParent).Task.AsUniTask();
+        GameObject playerObject = await _playerPrefab.InstantiateAsync(spawnPoint.position, Quaternion.identity, _playerParent).Task.AsUniTask();
 
         Player = playerObject.GetComponent<Player>();
     }

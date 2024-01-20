@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3817700473296790793}
   - component: {fileID: 4282506171757922109}
   - component: {fileID: 8191774373098159234}
+  - component: {fileID: 5102108744051662804}
   - component: {fileID: 110339309340124753}
   - component: {fileID: 2809758148309752491}
   m_Layer: 1
@@ -77,6 +78,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Controller>k__BackingField: {fileID: 110339309340124753}
+--- !u!114 &5102108744051662804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007242741850528205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aef3a4e889b78a4fba6810c8095e892, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactionDistance: 10
+  _interactionKey: 101
+  _interactionLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _pageGrabSound: {fileID: 8300000, guid: d2d404112242fbb4ca4ef1d047f5f74f, type: 3}
+  _playerCamera: {fileID: 6586328812005420354}
+  _audioSource: {fileID: 6852545583749410543}
 --- !u!114 &110339309340124753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,7 +254,7 @@ MonoBehaviour:
       regenRateStill: 0.8
       regenRateMoving: 0.5
       regenWait: 1
-    canJump: 1
+    canJump: 0
     jumpingRequiresStamina: 0
     jumpStaminaRequire: 1
     jumpStaminaCost: 1
@@ -242,7 +263,7 @@ MonoBehaviour:
     airJumpTime: 0.1
     airJumpsAmount: 0
     allowAirJumpDirectionChange: 1
-    canCrouch: 1
+    canCrouch: 0
     crouchToggleMode: 0
     crouchSpeeds:
       forwardSpeed: 2
@@ -351,10 +372,16 @@ MonoBehaviour:
       changeVolume: 1
       volume: 1
       audioClips:
-      - {fileID: 8300000, guid: 44e59b73420f0e64fb30e755c49b3823, type: 3}
-      - {fileID: 8300000, guid: 62e6bf700540ea9478b91b33afa85e7e, type: 3}
-      - {fileID: 8300000, guid: bbe4ed33245f5804db42ff8c43d75412, type: 3}
-      - {fileID: 8300000, guid: 1e5761292ed025241bdb02ff49c552dd, type: 3}
+      - {fileID: 8300000, guid: ef6b7a3786aa43342bd9da6cab5c38b0, type: 3}
+      - {fileID: 8300000, guid: 7182b335465282c42906d4a8991ad4c6, type: 3}
+      - {fileID: 8300000, guid: 4489db0d2dd07fe47b79ef1aafd98c41, type: 3}
+      - {fileID: 8300000, guid: 51e7744e4c0cf2b4f80eb0e724ea90f0, type: 3}
+      - {fileID: 8300000, guid: 68a4fa1e6fa98f644838cdcb56bf5b7f, type: 3}
+      - {fileID: 8300000, guid: 5655a3435f391634ab05d325a063e57d, type: 3}
+      - {fileID: 8300000, guid: 13e7e982463114247b52b9a0795d2da3, type: 3}
+      - {fileID: 8300000, guid: 1c032c613ff94c545afed71eeeda62af, type: 3}
+      - {fileID: 8300000, guid: 11a79ec5b74f03c4bb5b826203c7de81, type: 3}
+      - {fileID: 8300000, guid: 641ec219883f1e84c8bcb78e85da7f91, type: 3}
     runFootsteps:
       enabled: 1
       randomPitch: 1
@@ -364,12 +391,18 @@ MonoBehaviour:
       changeVolume: 1
       volume: 1
       audioClips:
-      - {fileID: 8300000, guid: 44e59b73420f0e64fb30e755c49b3823, type: 3}
-      - {fileID: 8300000, guid: 62e6bf700540ea9478b91b33afa85e7e, type: 3}
-      - {fileID: 8300000, guid: bbe4ed33245f5804db42ff8c43d75412, type: 3}
-      - {fileID: 8300000, guid: 1e5761292ed025241bdb02ff49c552dd, type: 3}
+      - {fileID: 8300000, guid: ef6b7a3786aa43342bd9da6cab5c38b0, type: 3}
+      - {fileID: 8300000, guid: 7182b335465282c42906d4a8991ad4c6, type: 3}
+      - {fileID: 8300000, guid: 4489db0d2dd07fe47b79ef1aafd98c41, type: 3}
+      - {fileID: 8300000, guid: 51e7744e4c0cf2b4f80eb0e724ea90f0, type: 3}
+      - {fileID: 8300000, guid: 68a4fa1e6fa98f644838cdcb56bf5b7f, type: 3}
+      - {fileID: 8300000, guid: 5655a3435f391634ab05d325a063e57d, type: 3}
+      - {fileID: 8300000, guid: 13e7e982463114247b52b9a0795d2da3, type: 3}
+      - {fileID: 8300000, guid: 1c032c613ff94c545afed71eeeda62af, type: 3}
+      - {fileID: 8300000, guid: 11a79ec5b74f03c4bb5b826203c7de81, type: 3}
+      - {fileID: 8300000, guid: 641ec219883f1e84c8bcb78e85da7f91, type: 3}
     crouchFootsteps:
-      enabled: 1
+      enabled: 0
       randomPitch: 1
       pitch: 1
       minPitch: 0.9
@@ -377,12 +410,18 @@ MonoBehaviour:
       changeVolume: 1
       volume: 0.4
       audioClips:
-      - {fileID: 8300000, guid: 44e59b73420f0e64fb30e755c49b3823, type: 3}
-      - {fileID: 8300000, guid: 62e6bf700540ea9478b91b33afa85e7e, type: 3}
-      - {fileID: 8300000, guid: bbe4ed33245f5804db42ff8c43d75412, type: 3}
-      - {fileID: 8300000, guid: 1e5761292ed025241bdb02ff49c552dd, type: 3}
+      - {fileID: 8300000, guid: ef6b7a3786aa43342bd9da6cab5c38b0, type: 3}
+      - {fileID: 8300000, guid: 7182b335465282c42906d4a8991ad4c6, type: 3}
+      - {fileID: 8300000, guid: 4489db0d2dd07fe47b79ef1aafd98c41, type: 3}
+      - {fileID: 8300000, guid: 51e7744e4c0cf2b4f80eb0e724ea90f0, type: 3}
+      - {fileID: 8300000, guid: 68a4fa1e6fa98f644838cdcb56bf5b7f, type: 3}
+      - {fileID: 8300000, guid: 5655a3435f391634ab05d325a063e57d, type: 3}
+      - {fileID: 8300000, guid: 13e7e982463114247b52b9a0795d2da3, type: 3}
+      - {fileID: 8300000, guid: 1c032c613ff94c545afed71eeeda62af, type: 3}
+      - {fileID: 8300000, guid: 11a79ec5b74f03c4bb5b826203c7de81, type: 3}
+      - {fileID: 8300000, guid: 641ec219883f1e84c8bcb78e85da7f91, type: 3}
     jumping:
-      enabled: 1
+      enabled: 0
       randomPitch: 1
       pitch: 1
       minPitch: 0.9
@@ -392,7 +431,7 @@ MonoBehaviour:
       audioClips:
       - {fileID: 8300000, guid: 11cc82c4daa9f304dbbfab62c9207608, type: 3}
     landing:
-      enabled: 1
+      enabled: 0
       randomPitch: 1
       pitch: 1
       minPitch: 0.9
