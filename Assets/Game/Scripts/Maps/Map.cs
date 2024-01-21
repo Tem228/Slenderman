@@ -7,11 +7,17 @@ public class Map : MonoBehaviour
     [SerializeField]
     private Material _skyboxMaterial;
 
+    [field: SerializeField]
+    public Terrain Terrain { get; private set; }
+
     [field : SerializeField]
-    public MapPlayerSpawnPoints PlayerSpawnPoints { get; private set; }
+    public MapPoints PlayerSpawnPoints { get; private set; }
 
     [field: SerializeField]
-    public MapPagesSpawnPoints PageSpawnPoints { get; private set; }
+    public MapPoints PagesSpawnPoints { get; private set; }
+
+    [field: SerializeField]
+    public MapPoints SlenderSpawnPoints { get; private set; }
 
     private void OnValidate() 
     {

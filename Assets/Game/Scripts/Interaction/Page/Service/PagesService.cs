@@ -4,24 +4,31 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+
 using Random = UnityEngine.Random;
 
 public class PagesService : MonoBehaviour
 {
     [Header("Parameters")]
+
     [SerializeField]
     private float _minDistanceBetweenPages;
+
     [SerializeField]
     [Range(1, 10)]
     private int _createPagesAmount;
 
     [Header("Prefab")]
+
     [SerializeField]
-    private AssetReferenceGameObject _pageReference;
+    private string _prefabPath;
+
+    [SerializeField]
+    private Transform _pagesParent;  
 
     private bool _subscribedToEvents;
 
-    private Page _pagePrefab;
+    private Page _prefab;
 
     private List<Page> _pages;
 
@@ -33,20 +40,9 @@ public class PagesService : MonoBehaviour
 
     public event Action<Page> PageCollected;
 
-    private void OnValidate()
-    {
-        if (_pageReference != null
-        && _pageReference.editorAsset.GetComponent<Page>() == null)
-        {
-            _pageReference = null;
-
-            throw new Exception($"Укажите ссылку на обьект у которого есть скрипт Page");
-        }
-    }
-
     private void OnDestroy()
     {
-        _pageReference.ReleaseAsset();
+        Addressables.ReleaseInstance(_prefab.gameObject);
 
         UnSubscribeFromEvents();
     }
@@ -64,9 +60,14 @@ public class PagesService : MonoBehaviour
     {
         CollectedPagesAmount = 0;
 
-        GameObject pagePrefab = await _pageReference.LoadAssetAsync().ToUniTask();
+        GameObject pageObject = await Addressables.LoadAssetAsync<GameObject>(_prefabPath).Task.AsUniTask();
 
-        _pagePrefab = pagePrefab.GetComponent<Page>();
+        _prefab = pageObject.GetComponent<Page>();
+
+        if (_prefab == null)
+        {
+            throw new Exception($"У обьекта {_prefabPath} отсутствует скрипт Page");
+        }
 
         for (int i = 0; i < _createPagesAmount; i++)
         {
@@ -76,11 +77,9 @@ public class PagesService : MonoBehaviour
 
     private void CreatePage()
     {
-        MapPagesSpawnPoints pagesSpawnPoints = _mapsService.CurrentMap.PageSpawnPoints;
+        Transform randomPoint = GetPageRandomPoint(_mapsService.CurrentMap.PagesSpawnPoints.Points.ToList());
 
-        Transform randomPoint = GetPageRandomPoint(pagesSpawnPoints.Points.ToList());
-
-        Page page = Instantiate(_pagePrefab, randomPoint.position, randomPoint.rotation, pagesSpawnPoints.Parent);
+        Page page = Instantiate(_prefab, randomPoint.position, randomPoint.rotation, _pagesParent);
 
         page.Initialize(OnPageCollected, OnPageCollected);
 

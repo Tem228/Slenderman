@@ -8,27 +8,29 @@ public class GameEntryPoint : MonoBehaviour
     [SerializeField]
     private ObjectiveText _objectiveText;
 
-    [field: SerializeField]
-    public MapsService MapsService { get; private set; }
+    [SerializeField]
+    private SlenderService _slenderService;
 
-    [field: SerializeField]
-    public PagesService PagesService { get; private set; }
+    [SerializeField]
+    private MapsService _mapsService;
 
-    [field: SerializeField]
-    public PlayerService PlayerService { get; private set; }
+    [SerializeField]
+    private PagesService _pagesService;
 
-    public static GameEntryPoint Instance { get; private set; }
+    [SerializeField]
+    private PlayerService _playerService;
 
     private void Awake()
     {
-        Instance = this;
 
-        PagesService.Initialize(MapsService);
+        _slenderService.Initialize(_mapsService, _pagesService, _playerService);
 
-        PlayerService.Initialize(MapsService);
+        _pagesService.Initialize(_mapsService);
 
-        MapsService.LoadMap(_gameParameters.DefaultMapPrefab);
+        _objectiveText.Initialize(_pagesService);
 
-        _objectiveText.Initialize(PagesService);
+        _playerService.Initialize(_mapsService);
+
+        _mapsService.LoadMap(_gameParameters.DefaultMapPrefabPath);
     }
 }

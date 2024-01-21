@@ -87,6 +87,8 @@ public class ObjectiveText : MonoBehaviour
         }
 
         _pagesService.PageCollected += OnPageCollected;
+
+        _subscribedToEvents = true;
     }
 
     private void UnSubscribedFromEvents()
@@ -97,6 +99,8 @@ public class ObjectiveText : MonoBehaviour
         }
 
         _pagesService.PageCollected -= OnPageCollected;
+
+        _subscribedToEvents = false;
     }
 
     private void OnPageCollected(Page page)

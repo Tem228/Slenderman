@@ -78,6 +78,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Controller>k__BackingField: {fileID: 110339309340124753}
+  <NoiseEffect>k__BackingField: {fileID: 6088254206498058021}
+  <ChromaticAbberationEffect>k__BackingField: {fileID: 7543909830243169823}
 --- !u!114 &5102108744051662804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -740,6 +742,8 @@ GameObject:
   - component: {fileID: 6586328812005420354}
   - component: {fileID: 2634116878151497048}
   - component: {fileID: 5956989097390860271}
+  - component: {fileID: 6088254206498058021}
+  - component: {fileID: 7543909830243169823}
   m_Layer: 1
   m_Name: Player Camera
   m_TagString: Untagged
@@ -830,6 +834,53 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6027479905181442198}
   m_Enabled: 1
+--- !u!114 &6088254206498058021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6027479905181442198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88a26a276b4e47619ce2c5adad33fab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monochrome: 1
+  grainIntensityMin: 0
+  grainIntensityMax: 0
+  grainSize: 0.7
+  scratchIntensityMin: 0.05
+  scratchIntensityMax: 0
+  scratchFPS: 1
+  scratchJitter: 0.01
+  grainTexture: {fileID: 2800000, guid: ffa9c02760c2b4e8eb9814ec06c4b05b, type: 3}
+  scratchTexture: {fileID: 2800000, guid: 6205c27cc031f4e66b8ea90d1bfaa158, type: 3}
+  shaderRGB: {fileID: 4800000, guid: 5d7f4c401ae8946bcb0d6ff68a9e7466, type: 3}
+  shaderYUV: {fileID: 4800000, guid: 0e447868506ba49f0a73235b8a8b647a, type: 3}
+--- !u!114 &7543909830243169823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6027479905181442198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6d4281e5d7cd44d8c6e38bc2c1b8d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 0
+  intensity: 0
+  chromaticAberration: 0
+  axialAberration: 0.5
+  blur: 0
+  blurSpread: 0.75
+  luminanceDependency: 0.25
+  blurDistance: 2.5
+  vignetteShader: {fileID: 4800000, guid: 627943dc7a9a74286b70a4f694a0acd5, type: 3}
+  separableBlurShader: {fileID: 4800000, guid: e97c14fbb5ea04c3a902cc533d7fc5d1, type: 3}
+  chromAberrationShader: {fileID: 4800000, guid: 2b4f29398d9484ccfa9fd220449f5eee, type: 3}
 --- !u!1 &6236932578439591648
 GameObject:
   m_ObjectHideFlags: 0

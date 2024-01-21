@@ -1,31 +1,27 @@
 using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 public class PlayerService : MonoBehaviour
 {
+    [Header("Prefab")]
+
     [SerializeField]
-    private AssetReferenceGameObject _playerPrefab;
+    private string _prefabPath;
 
     [SerializeField]
     private Transform _playerParent;
+
+    private bool _subscribedToEvents;
 
     private MapsService _mapsService;
 
     public Player Player { get; private set; }
 
-    private bool _subscribedToEvents;
+    public event Action<Player> PlayerCreated;
 
-    private void OnValidate() 
-    {
-        if (_playerPrefab != null
-        && _playerPrefab.editorAsset.GetComponent<Player>() == null)
-        {
-            _playerPrefab = null;
-
-            throw new System.Exception($"Укажите ссылку на обьект у которого есть скрипт Player");
-        }
-    }
+    public event Action<Player> PlayerDestroyed;
 
     private void OnDestroy()
     {
@@ -43,14 +39,25 @@ public class PlayerService : MonoBehaviour
     {
         Transform spawnPoint = _mapsService.CurrentMap.PlayerSpawnPoints.DefaultPoint;
 
-        GameObject playerObject = await _playerPrefab.InstantiateAsync(spawnPoint.position, Quaternion.identity, _playerParent).Task.AsUniTask();
+        GameObject playerObject = await Addressables.InstantiateAsync(_prefabPath, spawnPoint.position, Quaternion.identity, _playerParent).Task.AsUniTask();
 
         Player = playerObject.GetComponent<Player>();
+
+        if(Player == null)
+        {
+            throw new System.Exception($"У обьекта {_prefabPath} отсутствует скрипт Player");
+        }
+
+        Player.Initialize();
+
+        PlayerCreated?.Invoke(Player);
     }
 
     private void DestroyPlayer()
     {
-        _playerPrefab.ReleaseInstance(Player.gameObject);
+        PlayerDestroyed?.Invoke(Player);
+
+        Addressables.ReleaseInstance(Player.gameObject);
     }
 
     #region EventsHandlers

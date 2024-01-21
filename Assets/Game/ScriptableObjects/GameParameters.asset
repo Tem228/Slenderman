@@ -12,8 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e64d721f291d2a248b102ddf921a4e44, type: 3}
   m_Name: GameParameters
   m_EditorClassIdentifier: 
-  <DefaultMapPrefab>k__BackingField:
-    m_AssetGUID: 8cecd2f33e3f55a448d50ba4a5ba9609
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
+  <DefaultMapPrefabPath>k__BackingField: Forest

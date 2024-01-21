@@ -14,13 +14,18 @@ public class MapsService : MonoBehaviour
 
     public event Action MapDestroyed;
 
-    public async void LoadMap(AssetReferenceGameObject mapPrefab)
+    public async void LoadMap(string prefabPath)
     {
         DestroyMap();
 
-        GameObject mapObject = await  Addressables.InstantiateAsync(mapPrefab, _mapParent).Task.AsUniTask();
+        GameObject mapObject = await Addressables.InstantiateAsync(prefabPath, _mapParent).Task.AsUniTask();
 
         CurrentMap = mapObject.GetComponent<Map>();
+
+        if(CurrentMap == null)
+        {
+            throw new Exception($"У обьекта {prefabPath} отсутсвует скрипт Map");
+        }
 
         CurrentMap.Initialize();
 
