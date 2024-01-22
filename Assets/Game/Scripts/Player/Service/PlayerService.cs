@@ -45,7 +45,7 @@ public class PlayerService : MonoBehaviour
 
         if(Player == null)
         {
-            throw new System.Exception($"У обьекта {_prefabPath} отсутствует скрипт Player");
+            throw new Exception($"У обьекта {_prefabPath} отсутствует скрипт Player");
         }
 
         Player.Initialize();

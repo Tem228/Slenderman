@@ -36,7 +36,9 @@ public class PagesService : MonoBehaviour
 
     public int CollectedPagesAmount { get; private set; }
 
-    public int NeedCollectPagesAmount => _createPagesAmount; 
+    public int NeedCollectPagesAmount => _createPagesAmount;
+
+    public event Action AllPagesCollected;
 
     public event Action<Page> PageCollected;
 
@@ -81,7 +83,7 @@ public class PagesService : MonoBehaviour
 
         Page page = Instantiate(_prefab, randomPoint.position, randomPoint.rotation, _pagesParent);
 
-        page.Initialize(OnPageCollected, OnPageCollected);
+        page.Initialize(OnPageDestroyed, OnPageCollected);
 
         _pages.Add(page);
     }
@@ -165,9 +167,14 @@ public class PagesService : MonoBehaviour
 
     private void OnPageCollected(Page page)
     {
-        PageCollected?.Invoke(page);
-
         CollectedPagesAmount += 1;
+
+        if (CollectedPagesAmount == NeedCollectPagesAmount)
+        {
+            AllPagesCollected?.Invoke();
+        }
+
+        PageCollected?.Invoke(page);
     }
 
     #endregion
