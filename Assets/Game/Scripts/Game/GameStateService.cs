@@ -26,6 +26,8 @@ public class GameStateService
         _playerService = playerService;
 
         SubscribeToEvents();
+
+        Debug.Log("œŒƒœ»— ¿!");
     }
 
     ~GameStateService()
@@ -33,6 +35,8 @@ public class GameStateService
         UnSubscribeFromEvents();
 
         UnSubscribeFromPlayerEvents();
+
+        Debug.Log("Œ“œ»— ¿!");
     }
 
     #region EventsHandlers
