@@ -24,10 +24,6 @@ public class ResolutionSettings
 
             _resolutionIndex = value;
 
-            Resolution currentResoultion = Screen.resolutions[_resolutionIndex];
-
-            Screen.SetResolution(currentResoultion.width, currentResoultion.height, Screen.fullScreen);
-
             PlayerPrefs.SetInt(SAVE_KEY_RESOLUTION_INDEX, _resolutionIndex);
 
             ResoultionIndexChanged?.Invoke(_resolutionIndex);
