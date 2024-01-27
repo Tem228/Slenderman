@@ -22,11 +22,11 @@ public class GameEntryPoint : MonoBehaviour
 
     private GameStateService _gameStateService;
 
-    private void Awake()
+    private async void Awake()
     {
         _playerService.Initialize(_mapsService);
 
-        _pagesService.Initialize(_mapsService);
+        await _pagesService.Initialize(_mapsService);
 
         _objectiveText.Initialize(_pagesService);
 

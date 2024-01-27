@@ -1,11 +1,15 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Audio;
 
 public class Settings : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField]
-    private AudioMixer _audioMixer;
+    private AssetReferenceT<AudioMixer> _audioMixerAsset;
+
+    public AudioMixer AudioMixer { get; private set; }
 
     public AudioSettings Audio { get; private set; }
 
@@ -15,9 +19,17 @@ public class Settings : MonoBehaviour
 
     public static Settings Instance { get; private set; }
 
-    private void Awake()
+    private void OnDestroy()
     {
-        if(Instance != null)
+       if(AudioMixer != null)
+        {
+            Addressables.Release(AudioMixer);
+        }
+    }
+
+    public async UniTask Initialize()
+    {
+        if (Instance != null)
         {
             Destroy(gameObject);
 
@@ -26,7 +38,11 @@ public class Settings : MonoBehaviour
 
         Instance = this;
 
-        Audio = new AudioSettings(_audioMixer);
+        await UniTask.WaitForSeconds(0.01f);
+
+        AudioMixer = await _audioMixerAsset.LoadAssetAsync().Task.AsUniTask();
+
+        Audio = new AudioSettings(AudioMixer);
 
         Graphics = new GraphicsSettings();
 

@@ -49,18 +49,11 @@ public class PagesService : MonoBehaviour
         UnSubscribeFromEvents();
     }
 
-    public void Initialize(MapsService mapsService)
+    public async UniTask Initialize(MapsService mapsService)
     {
         _pages = new List<Page>();
 
         _mapsService = mapsService;
-
-        SubscribeToEvents();
-    }
-
-    private async void CreatePages()
-    {
-        CollectedPagesAmount = 0;
 
         GameObject pageObject = await Addressables.LoadAssetAsync<GameObject>(_prefabPath).Task.AsUniTask();
 
@@ -70,6 +63,13 @@ public class PagesService : MonoBehaviour
         {
             throw new Exception($"У обьекта {_prefabPath} отсутствует скрипт Page");
         }
+
+        SubscribeToEvents();
+    }
+
+    private void CreatePages()
+    {
+        CollectedPagesAmount = 0;
 
         for (int i = 0; i < _createPagesAmount; i++)
         {
