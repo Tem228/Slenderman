@@ -15,6 +15,9 @@ public class GameEntryPoint : MonoBehaviour
     private MapsService _mapsService;
 
     [SerializeField]
+    private PauseService _pauseService;
+
+    [SerializeField]
     private PagesService _pagesService;
 
     [SerializeField]
@@ -24,7 +27,9 @@ public class GameEntryPoint : MonoBehaviour
 
     private async void Awake()
     {
-        _playerService.Initialize(_mapsService);
+        _pauseService.Initialize();
+
+        _playerService.Initialize(_mapsService, _pauseService);
 
         await _pagesService.Initialize(_mapsService);
 

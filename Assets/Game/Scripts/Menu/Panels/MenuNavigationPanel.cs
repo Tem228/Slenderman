@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuNavigationTab : MenuTabBase
+public class MenuNavigationPanel : Panel
 {
     [Header("Buttons")]
     [SerializeField]
@@ -13,18 +13,19 @@ public class MenuNavigationTab : MenuTabBase
     [SerializeField]
     private Button _exitButton;
 
-    private bool _subscribedToEvents;
+    [Header("Panels")]
+    [SerializeField]
+    private MenuSettingsPanel _settingsPanel;
 
-    public override MenuTabType Type => MenuTabType.Navigation;
+    private bool _subscribedToEvents;
 
     private void OnDestroy()
     {
         UnSubscibeFromEvents();
     }
-    public override void Initialize(MenuTabsService tabsService)
-    {
-        base.Initialize(tabsService);
 
+    public void Initialize()
+    {
         SubscribeToEvents();
     }
 
@@ -69,14 +70,15 @@ public class MenuNavigationTab : MenuTabBase
 
     private void OnSettingsClick()
     {
-        TabsService.ShowTab(MenuTabType.Settings);
+        SetVisible(false);
+
+        _settingsPanel.SetVisible(true);
     }
 
     private void OnExitButtonClick()
     {
         Application.Quit();
     }
-
 
     #endregion
 }

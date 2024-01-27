@@ -2,12 +2,18 @@ using UnityEngine;
 
 public class MenuEntryPoint : MonoBehaviour
 {
-    [Header("Services")]
+    [Header("Panels")]
     [SerializeField]
-    private MenuTabsService _tabsService;
+    private MenuNavigationPanel _navigationPanel;
+    [SerializeField]
+    private MenuSettingsPanel _settingsPanel;
 
     private void Awake()
     {
-        _tabsService.Initialize();
+        _navigationPanel.Initialize();
+
+        _settingsPanel.Initialize();
+
+        _navigationPanel.SetVisible(true);
     }
 }

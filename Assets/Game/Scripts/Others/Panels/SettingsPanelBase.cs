@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuSettingsTab : MenuTabBase
+public class SettingsPanel : Panel
 {
     [Header("Buttons")]
     [SerializeField]
@@ -24,17 +24,13 @@ public class MenuSettingsTab : MenuTabBase
 
     private Settings _settings;
 
-    public override MenuTabType Type => MenuTabType.Settings;
-
     private void OnDestroy()
     {
         UnSubscribeFromEvents();
     }
 
-    public override void Initialize(MenuTabsService tabsService)
+    public void Initialize()
     {
-        base.Initialize(tabsService);
-
         _settings = Settings.Instance;
 
         InitializeMusicVolumeSlider();
@@ -138,10 +134,7 @@ public class MenuSettingsTab : MenuTabBase
         _subscribedToEvents = false;
     }
 
-    private void OnBackButtonClicked()
-    {
-        TabsService.ShowTab(MenuTabType.Navigation);
-    }
+    protected virtual void OnBackButtonClicked() { }
 
     private void OnMusicVolumeValueChanged(float value)
     {

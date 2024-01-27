@@ -17,6 +17,8 @@ public class PlayerService : MonoBehaviour
 
     private MapsService _mapsService;
 
+    private PauseService _pauseService;
+
     public Player Player { get; private set; }
 
     public event Action<Player> PlayerCreated;
@@ -28,9 +30,11 @@ public class PlayerService : MonoBehaviour
         UnSubscribeToEvents();
     }
 
-    public void Initialize(MapsService mapsService)
+    public void Initialize(MapsService mapsService, PauseService pauseService)
     {
         _mapsService = mapsService;
+
+        _pauseService = pauseService;
 
         SubscribeToEvents();
     }
@@ -48,7 +52,7 @@ public class PlayerService : MonoBehaviour
             throw new Exception($"У обьекта {_prefabPath} отсутствует скрипт Player");
         }
 
-        Player.Initialize();
+        Player.Initialize(_pauseService);
 
         PlayerCreated?.Invoke(Player);
     }
